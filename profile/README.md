@@ -58,6 +58,7 @@ kubectl -n rabbits apply -f https://raw.githubusercontent.com/DM885/RabbitMQK8S/
 kubectl -n rabbits apply -f https://raw.githubusercontent.com/DM885/RabbitMQK8S/main/rabbit-statefulset-gke.yaml
 ```
 ### Install Microservices:
+```bash
 kubectl -n rabbits apply -f https://raw.githubusercontent.com/DM885/GatewayService/main/deployment.yaml
 kubectl -n rabbits apply -f https://raw.githubusercontent.com/DM885/CRUDservice/main/deployment.yaml
 kubectl -n rabbits apply -f https://raw.githubusercontent.com/DM885/SolverInfoService/main/deployment.yaml
@@ -65,4 +66,4 @@ kubectl -n rabbits apply -f https://raw.githubusercontent.com/DM885/Authenticati
 kubectl -n rabbits apply -f https://raw.githubusercontent.com/DM885/LoggingService/main/deployment.yaml
 kubectl -n rabbits apply -f https://raw.githubusercontent.com/DM885/JobService/main/deployment.yaml
 kubectl -n rabbits apply -f https://raw.githubusercontent.com/DM885/MiniZincService/main/deployment.yaml
-
+```
