@@ -68,3 +68,18 @@ kubectl -n rabbits apply -f https://raw.githubusercontent.com/DM885/LoggingServi
 kubectl -n rabbits apply -f https://raw.githubusercontent.com/DM885/JobService/main/deployment.yaml
 kubectl -n rabbits apply -f https://raw.githubusercontent.com/DM885/MiniZincService/main/deployment.yaml
 ```
+
+## Setup the pipeline in a Github repository
+### Prerequisites
+* The organisation/repository secrets from above.
+* `test_services.sh` in the root folder of the repository containing commands to add the services which the integrations tests needs to succeed.
+* `deployment.yaml` in the root folder of the repository, setup correctly to be deployed to kubernetes. Must have unique labels/names in the file. 
+
+### Github Actions CICD pipeline:
+* Create a folder `.github/` in the root folder of the repository.
+* Create a folder `workflows/` in the `.github/` folder.
+* Add the bash files `k3s-setup.sh` and `k3s-wait.sh` in `.github/`
+* Add the yaml files `main.yaml` and `developer.yaml` in `.github/workflows/`
+* Go into the `main.yaml` file and change the env variable `DEPLOYMENT_NAME`
+
+## WIP
