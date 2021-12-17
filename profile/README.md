@@ -39,6 +39,7 @@ kubectl apply -f https://raw.githubusercontent.com/DM885/PrometheusService/main/
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/DM885/MySQLK8S/main/mysql-secrets.yaml
 kubectl -n rabbits apply -f https://raw.githubusercontent.com/DM885/MySQLK8S/main/mysql-secrets.yaml
+kubectl -n rabbits apply -f https://raw.githubusercontent.com/DM885/MySQLK8S/main/auth-secrets.yaml
 ```
 #### Storage
 ```bash
