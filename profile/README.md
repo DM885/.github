@@ -58,6 +58,21 @@ kubectl -n rabbits apply -f https://raw.githubusercontent.com/DM885/RabbitMQK8S/
 kubectl -n rabbits apply -f https://raw.githubusercontent.com/DM885/RabbitMQK8S/main/rabbit-secret.yaml
 kubectl -n rabbits apply -f https://raw.githubusercontent.com/DM885/RabbitMQK8S/main/rabbit-statefulset-gke.yaml
 ```
+Once the pods have initialized. Configure rabbitmq to use queue mirroring and set a TTL for the messages in the queue:
+```bash
+kubectl -n rabbits exec -it pod/rabbitmq-0 bash
+```
+Once inside:
+```bash
+rabbitmqctl set_policy TTL ".*" '{"message-ttl":60000}' --apply-to queues
+```
+```bash
+rabbitmqctl set_policy ha-fed \
+    ".*" '{"federation-upstream-set":"all", "ha-sync-mode":"automatic", "ha-mode":"nodes", "ha-params":["rabbit@rabbitmq-0.rabbitmq.rabbits.svc.cluster.local","rabbit@rabbitmq-1.rabbitmq.rabbits.svc.cluster.local"]}' \
+    --priority 1 \
+    --apply-to queues
+```
+Exit the pod and continue.
 ### Install Microservices:
 ```bash
 kubectl -n rabbits apply -f https://raw.githubusercontent.com/DM885/GatewayService/main/deployment.yaml
