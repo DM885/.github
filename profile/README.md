@@ -97,4 +97,5 @@ kubectl -n rabbits apply -f https://raw.githubusercontent.com/DM885/MiniZincServ
 * Add the yaml files `main.yaml` and `developer.yaml` in `.github/workflows/`
 * Go into the `main.yaml` file and change the env variable `DEPLOYMENT_NAME`
 
+* Lastly, enable the CICD pipeline by setting the env variable `CICD_TOGGLE`to `true` in `main.yaml
 ## WIP
