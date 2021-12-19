@@ -49,7 +49,7 @@ kubectl apply -f https://raw.githubusercontent.com/DM885/MySQLK8S/main/mysql-pvc
 ```
 #### Install using Helm
 ```bash
-helm upgrade mysql -f https://raw.githubusercontent.com/DM885/MySQLK8S/main/mysql-values.yaml bitnami/mysql --set metrics.enabled=true --set serviceMonitor.enabled=true
+helm install mysql -f https://raw.githubusercontent.com/DM885/MySQLK8S/main/mysql-values.yaml bitnami/mysql --set metrics.enabled=true --set serviceMonitor.enabled=true
 ```
 ### Install RabbitMQ:
 ```bash
