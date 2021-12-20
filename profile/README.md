@@ -12,6 +12,12 @@
 #### Access to gcloud CLI either in GCP or locally:
 * (optional) install gcloud SDK locally - https://cloud.google.com/sdk/docs/install
 * Log in using the credentials created ealier - https://cloud.google.com/sdk/gcloud/reference/auth/login
+
+Get credentials in GCP shell for the cluster to use kubectl in the shell:
+```
+gcloud container clusters get-credentials buildcluster --region=europe-north1
+```
+
 ### Add Helm charts & create namespace
 ```bash 
 helm repo add bitnami https://charts.bitnami.com/bitnami
