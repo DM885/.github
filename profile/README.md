@@ -79,6 +79,15 @@ rabbitmqctl set_policy ha-fed \
     --apply-to queues
 ```
 Exit the pod and continue.
+### Grafana Dashboard:
+#### Dashboards -> Import, and import these two ID's:
+```
+14057
+```
+```
+10991
+```
+
 ### Install Microservices:
 ```bash
 kubectl -n rabbits apply -f https://raw.githubusercontent.com/DM885/GatewayService/main/deployment.yaml
@@ -109,4 +118,23 @@ curl https://raw.githubusercontent.com/DM885/MiniZincService/main/deployment.yam
 * Go into the `main.yaml` file and change the env variable `DEPLOYMENT_NAME`
 
 * Lastly, enable the CICD pipeline by setting the env variable `CICD_TOGGLE`to `true` in `main.yaml
-## WIP
+## UI
+ENV variables
+```
+apiURL: The URL to the API, defaults to either localhost or our api if not set.
+```
+### Deployment Guide
+
+#### Deploy to GitHub Pages
+
+Push this folder to you GitHub acount. This GiitHub action will trigger every time a change is pushed to the main branch. It will build the React app and deplay the content of the builld directory to 'gh-pages' branch.
+
+a GITHUB_TOKEN is needed in ${{secrets.GITHUB_TOKEN }}. Github wil normally automatiically create a token secret to use in the workflow. It comes with write access to the reporsitory. And therforere it is allowed to update the 'gh-pages' branch.
+
+#### Setup GitHub pages
+
+Now we need to enable GitHubPages. Click on settings in the menu. Choose 'Pages'. The build files are pushed to 'gh-pages' choose this branch as sources. Click on the save button
+
+#### Setup homepage
+
+Open up the source code and in the package.json add a key-value pair. Insert and replace this: "homepage": "https://.github.io//",
