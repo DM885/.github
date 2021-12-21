@@ -129,7 +129,7 @@ Sign in as an administrator and add the following solvers.
 | Solver name | Image             |
 |-------------|-------------------|
 | gecode      | minizinc/minizinc |
-| chuffed     | minizinc/minizin  |
+| chuffed     | minizinc/minizinc |
 
 
 ### Deployment Guide
