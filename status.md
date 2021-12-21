@@ -9,14 +9,14 @@ By using a programmatic RESTful API the user should be able to:
   (only mzn if dzn is not needed), selecting the solver to use and its options,
   the timeout, maximal amount of memory that can be used, vCPUs to use   (Done)
 * trigger the execution in parallel of more solvers terminating the other solvers
-  when the quickest solver terminates  (Not Done)
+  when the quickest solver terminates  (Done)
 * monitor the termination state of the solver execution  (Done)
 * given a computaton request, retrieve its result if terminated, what solver
   manage to solve it first and the time it took to solve it  (Done)
 * cancel the execution of a computation request (terminate the solver if
   running, delete the result otherwise)  (Done)
 * bulk execution of various instances to be solved with a set of solvers in
-  parallel (Not done)
+  parallel (Done)
 * GUI support (optional for group with less than 6 people)  (Done)
 
 The administrator of the framework should be able to:
