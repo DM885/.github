@@ -89,10 +89,10 @@ kubectl -n rabbits apply -f https://raw.githubusercontent.com/DM885/LoggingServi
 kubectl -n rabbits apply -f https://raw.githubusercontent.com/DM885/JobService/main/deployment.yaml
 ```
 ```bash
-cat https://raw.githubusercontent.com/DM885/MiniZincService/main/deployment.yaml | sed "s/name: minisolver/name: minisolver-1/g" | kubectl -n ${{ env.NAMESPACE }} apply -f -
-cat https://raw.githubusercontent.com/DM885/MiniZincService/main/deployment.yaml | sed "s/name: minisolver/name: minisolver-2/g" | kubectl -n ${{ env.NAMESPACE }} apply -f -
-cat https://raw.githubusercontent.com/DM885/MiniZincService/main/deployment.yaml | sed "s/name: minisolver/name: minisolver-3/g" | kubectl -n ${{ env.NAMESPACE }} apply -f -
-cat https://raw.githubusercontent.com/DM885/MiniZincService/main/deployment.yaml | sed "s/name: minisolver/name: minisolver-4/g" | kubectl -n ${{ env.NAMESPACE }} apply -f -
+curl https://raw.githubusercontent.com/DM885/MiniZincService/main/deployment.yaml | sed "s/name: minisolver/name: minisolver-1/g" | kubectl -n ${{ env.NAMESPACE }} apply -f -
+curl https://raw.githubusercontent.com/DM885/MiniZincService/main/deployment.yaml | sed "s/name: minisolver/name: minisolver-2/g" | kubectl -n ${{ env.NAMESPACE }} apply -f -
+curl https://raw.githubusercontent.com/DM885/MiniZincService/main/deployment.yaml | sed "s/name: minisolver/name: minisolver-3/g" | kubectl -n ${{ env.NAMESPACE }} apply -f -
+curl https://raw.githubusercontent.com/DM885/MiniZincService/main/deployment.yaml | sed "s/name: minisolver/name: minisolver-4/g" | kubectl -n ${{ env.NAMESPACE }} apply -f -
 ```
 
 ## Setup the pipeline in a Github repository
