@@ -124,7 +124,7 @@ ENV variables
 apiURL: The URL to the API, defaults to either localhost or our api if not set.
 ```
 ### Setup
-Sign in as an administrator and add the following solvers.
+Sign in as an administrator and for example add the following solvers.
 
 | Solver name | Image             |
 |-------------|-------------------|
