@@ -6,6 +6,7 @@
 * Create a cloud project.
 * Create a cluster in Google Kubernetes Engine - GKE Standard Cluster.
 #### Organisation/repository secrets:
+* Add personal access token from any one with reading privileges for the private repositories. Call it `AT`
 * Add dockerhub username and accesstoken in secrets as `DOCKERHUB_USERNAME` and `DOCKERHUB_TOKEN`
 * Add GCP Project_ID in secrets as `GKE_PROJECT`
 * Get `GKE_SA_KEY` and add as a secret - https://docs.github.com/en/actions/deployment/deploying-to-your-cloud-provider/deploying-to-google-kubernetes-engine
@@ -30,39 +31,39 @@ kubectl create ns rabbits
 ### Install Prometheus
 #### Install using Helm:
 ```bash
-helm install prometheus -f https://raw.githubusercontent.com/DM885/PrometheusK8S/main/prometheus-values-GKE.yaml prometheus-community/kube-prometheus-stack
+helm install prometheus -f /PrometheusK8S/prometheus-values-GKE.yaml prometheus-community/kube-prometheus-stack
 ```
 #### Prometheus rule-set:
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/DM885/PrometheusService/main/prometheus-roles.yaml
+kubectl apply -f /PrometheusService/prometheus-roles.yaml
 ```
 #### RabbitMQ service monitor:
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/DM885/PrometheusService/main/rabbitmq-servicemonitor.yaml
+kubectl apply -f /PrometheusService/rabbitmq-servicemonitor.yaml
 ```
 ### Install MySQL
 #### Secrets
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/DM885/MySQLK8S/main/mysql-secrets.yaml
-kubectl -n rabbits apply -f https://raw.githubusercontent.com/DM885/MySQLK8S/main/mysql-secrets.yaml
-kubectl -n rabbits apply -f https://raw.githubusercontent.com/DM885/MySQLK8S/main/auth-secrets.yaml
+kubectl apply -f /MySQLK8S/mysql-secrets.yaml
+kubectl -n rabbits apply -f /MySQLK8S/mysql-secrets.yaml
+kubectl -n rabbits apply -f /MySQLK8S/auth-secrets.yaml
 ```
 #### Storage
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/DM885/MySQLK8S/main/mysql-sc.yaml
-kubectl apply -f https://raw.githubusercontent.com/DM885/MySQLK8S/main/mysql-pv.yaml
-kubectl apply -f https://raw.githubusercontent.com/DM885/MySQLK8S/main/mysql-pvc-gke.yaml
+kubectl apply -f /MySQLK8S/mysql-sc.yaml
+kubectl apply -f /MySQLK8S/mysql-pv.yaml
+kubectl apply -f /MySQLK8S/mysql-pvc-gke.yaml
 ```
 #### Install using Helm
 ```bash
-helm install mysql -f https://raw.githubusercontent.com/DM885/MySQLK8S/main/mysql-values-gke.yaml bitnami/mysql
+helm install mysql -f /MySQLK8S/mysql-values-gke.yaml bitnami/mysql
 ```
 ### Install RabbitMQ:
 ```bash
-kubectl -n rabbits apply -f https://raw.githubusercontent.com/DM885/RabbitMQK8S/main/rabbit-rbac.yaml
-kubectl -n rabbits apply -f https://raw.githubusercontent.com/DM885/RabbitMQK8S/main/rabbit-configmap.yaml
-kubectl -n rabbits apply -f https://raw.githubusercontent.com/DM885/RabbitMQK8S/main/rabbit-secret.yaml
-kubectl -n rabbits apply -f https://raw.githubusercontent.com/DM885/RabbitMQK8S/main/rabbit-statefulset-gke.yaml
+kubectl -n rabbits apply -f /RabbitMQK8S/rabbit-rbac.yaml
+kubectl -n rabbits apply -f /RabbitMQK8S/rabbit-configmap.yaml
+kubectl -n rabbits apply -f /RabbitMQK8S/rabbit-secret.yaml
+kubectl -n rabbits apply -f /RabbitMQK8S/rabbit-statefulset-gke.yaml
 ```
 Once the pods have initialized. Configure rabbitmq to use queue mirroring and set a TTL for the messages in the queue:
 ```bash
@@ -90,18 +91,13 @@ Exit the pod and continue.
 
 ### Install Microservices:
 ```bash
-kubectl -n rabbits apply -f https://raw.githubusercontent.com/DM885/GatewayService/main/deployment.yaml
-kubectl -n rabbits apply -f https://raw.githubusercontent.com/DM885/CRUDservice/main/deployment.yaml
-kubectl -n rabbits apply -f https://raw.githubusercontent.com/DM885/SolverInfoService/main/deployment.yaml
-kubectl -n rabbits apply -f https://raw.githubusercontent.com/DM885/AuthenticationService/main/deployment.yaml
-kubectl -n rabbits apply -f https://raw.githubusercontent.com/DM885/LoggingService/main/deployment.yaml
-kubectl -n rabbits apply -f https://raw.githubusercontent.com/DM885/JobService/main/deployment.yaml
-```
-```bash
-curl https://raw.githubusercontent.com/DM885/MiniZincService/main/deployment.yaml | sed "s/name: minisolver/name: minisolver-1/g" |kubectl -n rabbits apply -f -
-curl https://raw.githubusercontent.com/DM885/MiniZincService/main/deployment.yaml | sed "s/name: minisolver/name: minisolver-2/g" |kubectl -n rabbits apply -f -
-curl https://raw.githubusercontent.com/DM885/MiniZincService/main/deployment.yaml | sed "s/name: minisolver/name: minisolver-3/g" |kubectl -n rabbits apply -f -
-curl https://raw.githubusercontent.com/DM885/MiniZincService/main/deployment.yaml | sed "s/name: minisolver/name: minisolver-4/g" |kubectl -n rabbits apply -f -
+kubectl -n rabbits apply -f /GatewayService/deployment.yaml
+kubectl -n rabbits apply -f /CRUDservice/deployment.yaml
+kubectl -n rabbits apply -f /SolverInfoService/deployment.yaml
+kubectl -n rabbits apply -f /AuthenticationService/deployment.yaml
+kubectl -n rabbits apply -f /LoggingService/deployment.yaml
+kubectl -n rabbits apply -f /JobService/deployment.yaml
+kubectl -n rabbits apply -f /MiniZincService/deployment.yaml
 ```
 
 ## Setup the pipeline in a Github repository
@@ -111,6 +107,7 @@ curl https://raw.githubusercontent.com/DM885/MiniZincService/main/deployment.yam
 * `deployment.yaml` in the root folder of the repository, setup correctly to be deployed to kubernetes. Must have unique labels/names in the file. 
 
 ### Github Actions CICD pipeline:
+#### The files for the pipeline will be in the folder "Pipeline"
 * Create a folder `.github/` in the root folder of the repository.
 * Create a folder `workflows/` in the `.github/` folder.
 * Add the bash files `k3s-setup.sh` and `k3s-wait.sh` in `.github/`
@@ -124,7 +121,7 @@ ENV variables
 apiURL: The URL to the API, defaults to either localhost or our api if not set.
 ```
 ### Setup
-Sign in as an administrator and for example add the following solvers.
+Sign in as an administrator and add the following solvers.
 
 | Solver name | Image             |
 |-------------|-------------------|
