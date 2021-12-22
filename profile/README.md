@@ -128,8 +128,8 @@ Sign in as an administrator and add the following solvers.
 
 | Solver name | Image             |
 |-------------|-------------------|
-| gecode      | minizinc/minizinc |
-| chuffed     | minizinc/minizinc |
+| gecode      | sejkom/gecode     |
+| chuffed     | sejkom/chuffed    |
 
 
 ### Deployment Guide
